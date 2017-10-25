@@ -1,0 +1,33 @@
+service: weather.ai
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  stage: dev
+  region: ap-northeast-1
+  role: arn:aws:iam::491150663186:role/service-role/basic.execution
+  memorySize: 256
+  timeout: 15
+
+functions:
+  lambda:
+    handler: handler.main
+    description: Description
+    environment:
+      DEPLOY: false
+      DEBUG: true
+      BUCKET: jp.holidays
+      YAML_FILE: config.yaml
+      JSON_FILE: jp.json
+      SEND_MAIL: false
+      EMAIL: paulzu100@gmail.com
+      EMAIL_REGION: us-east-1
+    tags:
+      type: weather
+
+package:
+  exclude:
+    - README.md
+    - LICENSE.md
+    - event.json
+    - .gitignore
