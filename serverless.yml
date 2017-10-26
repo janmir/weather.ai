@@ -17,7 +17,7 @@ functions:
       DEPLOY: false
       DEBUG: true
       BUCKET: jp.holidays
-      YAML_FILE: config.yaml
+      YAML_FILE: source.yaml
       JSON_FILE: jp.json
       SEND_MAIL: false
       EMAIL: paulzu100@gmail.com

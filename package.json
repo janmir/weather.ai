@@ -29,6 +29,7 @@
     "js-yaml": "^3.10.0",
     "moment-timezone": "^0.5.13",
     "moment-transform": "^1.0.1",
+    "numjs": "^0.14.2",
     "performance-now": "^2.1.0",
     "request": "^2.83.0"
   }

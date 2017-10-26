@@ -1,0 +1,14 @@
+api:
+  - url: https://darksky.net/dev/docs
+    key: VBNM<L:KJHGV
+    args: /{key}/something
+website:
+  - url:
+    container:
+    parent:
+    child:
+    selector:
+video:
+  - url:
+image:
+  - url:
