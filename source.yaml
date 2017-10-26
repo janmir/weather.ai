@@ -3,11 +3,11 @@ api:
     key: VBNM<L:KJHGV
     args: /{key}/something
 website:
-  - url:
-    container:
-    parent:
-    child:
-    selector:
+  - url: http://www.jma.go.jp/en/amedas_h/today-46106.html
+    check_selector: .td_title
+    check_value: "{date#DD MMMM YYYY} Yokohama"
+    data_selector:
+      - #tbl_list
 video:
   - url:
 image:
