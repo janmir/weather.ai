@@ -7,7 +7,8 @@ website:
     check_selector: .td_title
     check_value: "{date#DD MMMM YYYY} Yokohama"
     data_selector:
-      - #tbl_list
+      - "#tbl_list"
+      - 'tr'
 video:
   - url:
 image:

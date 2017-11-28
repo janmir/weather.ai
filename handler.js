@@ -29,8 +29,6 @@ const m = {
       keys.forEach((key)=>{
         m.leaf(m.source, key);
       });
-
-      console.log(m.source);
     }else{
       _fn.log("//From Cache");
     }
@@ -38,28 +36,95 @@ const m = {
     _fn.log(m.source);
   },
   pullWebsite: (obj)=>{
+    console.log("pullWebsite");
     obj.forEach((element)=>{
-      
+      console.log(element);
+
+      let url = element.url || null;
+
+      if(url !== null){
+        let check_selector = element.check_selector;
+        let check_value = element.check_value;
+        let data_selector = element.data_selector;
+
+        //fetch the website
+        request.get({
+          uri:url,
+          encoding: 'utf8'
+        }, 
+        function (error, response, body){
+          //Convert DOM to object
+          let html = $.parse(body);
+          let header = html.querySelector(check_selector);
+          let header_text = header.text.replace(/\s+/g, " ");
+
+
+          if(header_text === check_value){
+            console.log("Match!! ", header_text);
+
+            //fetch all data
+            let data = html.querySelectorAll(data_selector.join(" "));
+            data.splice(0, 2);
+
+            if(data.length == 24){ //24 hours
+              let row = 0;
+              let col = 0;
+
+              //n-type array
+              let table = n.zeros([9, 24]);
+
+              //populate the table
+              data.forEach(el => {
+                col = 0;
+                let td  = el.querySelectorAll("td");
+
+                td.forEach(e => {
+                  let text = e.text.trim();
+
+                  if(text !== ""){
+                    switch(col){
+                      case 0:{//number
+                      }break;
+                    }
+                    table.set(row, col, parseFloat(text) || 0);
+
+                    //mean
+                    //table.slice(null,[1]).flatten()
+                  }
+
+                  col++;
+                });
+
+                row++;
+              });
+
+              console.log(table);
+            }
+          }
+        });
+      }
     });
+
+    _fn.sexyback(null,{})
   },
   leaf: (base, key, depth='')=>{
     let obj = base[key];
 
     if(obj instanceof Array){
-      console.log(depth + "Array");
+      _fn.log(depth + "Array");
 
       var index = 0;
       obj.forEach((element)=>{
         m.leaf(obj, index++, depth+'-');
       });
     }else if(obj instanceof Object){
-      console.log(depth + "Object");
+      _fn.log(depth + "Object");
       
       _fn.keys(obj).forEach((element)=>{
         m.leaf(obj, element, depth+'-');
       });
     }else if(typeof obj === "string"){
-      console.log(depth + "String");
+      _fn.log(depth + "String");
       let str = base[key];
       
       //check if match
@@ -72,7 +137,7 @@ const m = {
           var value = "????";
           let splt = element.split("#");
           if(splt.length > 1){ //Function call
-            console.log(depth  + '-' + "fn:" + splt[0] + ", args:" + splt[1]);
+            _fn.log(depth  + '-' + "fn:" + splt[0] + ", args:" + splt[1]);
 
             let fn = splt[0];
             let arg = splt[1];
@@ -83,7 +148,7 @@ const m = {
               }break;
             }
           }else{ //Sibling value
-            console.log(depth  + '-' + "sibling:" + splt[0]);
+            _fn.log(depth  + '-' + "sibling:" + splt[0]);
 
             //Assign value
             value = base[splt[0]] || value;
