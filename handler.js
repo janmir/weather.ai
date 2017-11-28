@@ -71,7 +71,7 @@ const m = {
               let col = 0;
 
               //n-type array
-              let table = n.zeros([9, 24]);
+              let table = n.zeros([24, 9]);
 
               //populate the table
               data.forEach(el => {
@@ -84,6 +84,9 @@ const m = {
                   if(text !== ""){
                     switch(col){
                       case 0:{//number
+                      }break;
+                      case 1:{//temp
+                        //console.log(text);
                       }break;
                     }
                     table.set(row, col, parseFloat(text) || 0);
@@ -98,7 +101,12 @@ const m = {
                 row++;
               });
 
-              console.log(table);
+              console.log("Average Temp: ",table.slice(null,[1, 2]).flatten().mean();
+              /*
+              console.log("Precipitation: ",table.slice(null,[2, 3]).flatten().mean(), "%");
+              console.log("Wind Speed: ",table.slice(null,[4, 5]).flatten().mean(), "m/s");
+              console.log("Snow: ",table.slice(null,[6, 7]).flatten().mean(), "cm");
+              console.log("Humidity: ",table.slice(null,[7, 8]).flatten().mean());*/
             }
           }
         });

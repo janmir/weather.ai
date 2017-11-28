@@ -9,6 +9,12 @@ website:
     data_selector:
       - "#tbl_list"
       - 'tr'
+  - url: http://www.jma.go.jp/en/amedas_h/today-31312.html
+    check_selector: .td_title
+    check_value: "{date#DD MMMM YYYY} Aomori"
+    data_selector:
+      - "#tbl_list"
+      - 'tr'
 video:
   - url:
 image:
